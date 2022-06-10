@@ -1,0 +1,173 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World od Wish</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="app">
+        
+        <div id="box">
+            <!-- Init de la plateforme -->
+            <div v-if="clearScren == 0" id="display_factions">   
+                <!-- Get name -->
+                <div id="entre_nom">
+                    <div class="modal fade" id="getName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Welcome to {{ select }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label">Username</label>
+                                        <div class="col-sm-10">
+                                        <input v-model="name" type="text" placeholder="Enter your Username" class="form-control" id="staticEmail">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button :disabled="name == null" @click="saves()" type="button" class="btn btn-primary" data-dismiss="modal">Saves</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Get name -->
+                <!-- Modal -->
+                <div v-show="modal" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">WORLD OF WISH</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            Welcome to our WORLD OF WISH game...
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Faction 1 -->
+                    <div class="card" style="width: 11rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ faction[0] }}</h5>
+                            <button data-toggle="modal" data-target="#getName" @click="selectFaction(faction[0])"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                    <!-- Faction 2 -->
+                    <div class="card ml-5" style="width: 11rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ faction[1] }}</h5>
+                            <button data-toggle="modal" data-target="#getName" @click="selectFaction(faction[1])"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="clearScren == 1">
+                <div class="row text-center">
+                    <p class="text-center">SELECTIONNEZ VOTRE JOUEUR</p>
+                </div>
+                <div class="row">
+                    <!-- Faction 1 -->
+                    <div class="card" style="width: 15rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Archer</h5>
+                            <button @click="selectPlayer('Archer')"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                    <!-- Faction 2 -->
+                    <div class="card ml-5" style="width: 15rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"> Guerrier </h5>
+                            <button @click="selectPlayer('Guerrier')"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                </div> <br><br>
+                <div class="row">
+                    <!-- Faction 1 -->
+                    <div class="card" style="width: 11rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sorcier</h5>
+                            <button @click="selectPlayer('Sorcier')"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                    <!-- Faction 2 -->
+                    <div class="card ml-5" style="width: 11rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"> Pretre </h5>
+                            <button @click="selectPlayer('Pretre')"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                    <!-- Faction 2 -->
+                    <div class="card ml-5" style="width: 11rem;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"> Druide </h5>
+                            <button @click="selectPlayer('Druide')"  class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="clearScren == 2">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <p class="text-center">Player Name    : {{ name }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="text-center">Player Health  : {{ player }}</p>
+                        </div>
+                    </div>
+                </div><br><br>
+                <div class="row">
+                    <button class="btn btn-primary">Attaquer</button>
+                    <button class="btn btn-primary ml-5">Capacite speciale</button>
+                </div><br><br>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <p class="text-center">Ordinateur    : {{ name }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="text-center">Player Name    : {{ name }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="text-center">Player Health  : 0</p>
+                        </div>
+                        
+                    </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/popper.js"></script>
+    <script src="./assets/js/bootstrap.js"></script>
+    <script src="./assets/js/vue.js"></script>
+    <script src="./assets/js/axios.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./frontend/apps.js"></script>
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#myModal').modal('show');
+        });
+    </script>
+</body>
+</html>
